@@ -1,0 +1,17 @@
+{
+  "name": "yelp-camp-project",
+  "version": "1.0.0",
+  "description": "Web Application Development for a Campgrounds site, using RESTful API design. Using Vanilla JS &amp; Bootstrap for frontend, NodeJS, Express and Mongoose for backend and MongoDB as a NoSQL database.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Hajrudin Imamovic",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.0",
+    "mongoose": "^8.6.3",
+    "nodemon": "^3.1.5"
+  }
+}
