@@ -3,31 +3,61 @@
 <div class="container d-flex flex-column">
     <h1 class="align-self-center">New Campground</h1>
 
-    <form action="/campgrounds" method="POST">
+    <form action="/campgrounds" method="POST" novalidate class="validated-form">
         <div class="mb-3">
-        <label for="title" class="form-label">Campground title:</label>
-        <input type="text" class="form-control" id="title" name="campground[title]" placeholder="Campground Title">
+            <label for="title" class="form-label">Campground title:</label>
+            <input type="text" class="form-control" id="title" name="campground[title]" placeholder="Campground Title" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+            <div class="invalid-feedback">
+                Please name the campground!
+            </div>
         </div>
 
         <div class="mb-3">
-        <label for="location" class="form-label">Campground Location:</label>
-        <input type="text" class="form-control" id="location" name="campground[location]" placeholder="Campground Location">
+            <label for="location" class="form-label">Campground Location:</label>
+            <input type="text" class="form-control" id="location" name="campground[location]" placeholder="Campground Location" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+            <div class="invalid-feedback">
+                Please specify the campground location!
+            </div>
         </div>
 
         <div class="mb-3">
             <label for="image" class="form-label">Campground Image Url</label>
-            <input type="text" class="form-control" id="image" name="campground[image]" placeholder="Url">
+            <input type="text" class="form-control" id="image" name="campground[image]" placeholder="Url" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+            <div class="invalid-feedback">
+                Please give an image URL of the campground!
+            </div>
         </div>
 
         <label for="price" class="form-label">Campground Price</label>
         <div class="input-group mb-3">
             <span class="input-group-text" id="price-addon">$</span>
-            <input type="number" class="form-control" id="price" name="campground[price" placeholder="Price" aria-describedby="price-addon">
+            <input type="text" class="form-control" id="price" name="campground[price]" placeholder="Price" aria-describedby="price-addon" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+            <div class="invalid-feedback">
+                Please specify the campground price in USD!
+            </div>
         </div>
 
         <div class="mb-3">
             <label for="description" class="form-label">Campground Decription:</label>
-            <input type="text" class="form-control" id="description" name="campground[description]" placeholder="Campground Description">
+            <input type="text" class="form-control" id="description" name="campground[description]" placeholder="Campground Description" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+            <div class="invalid-feedback">
+                Briefly describe the campground!
+            </div>
         </div>
 
         <button type="submit" class="btn btn-success">Add Campground</button>
@@ -38,3 +68,4 @@
     <a href="/campgrounds">All Campgrounds</a>
 
 </div>
+
