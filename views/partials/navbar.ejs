@@ -5,16 +5,27 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link" href="/campgrounds">Campgrounds</a>
+              <a class="nav-link" href="/campgrounds">Campgrounds</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/campgrounds/new">New Campoground</a>
+              <a class="nav-link" href="/campgrounds/new">New Campground</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+        </ul>
+        <ul class="navbar-nav ms-auto">
+          <% if(!currentUser) {%>
+            <li class="nav-item">
+                <a class="nav-link" href="/login">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/register">Register</a>
+            </li>
+            <% } else { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Logout</a>
           </li>
+          <% } %>
         </ul>
       </div>
     </div>
