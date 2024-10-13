@@ -3,17 +3,19 @@ const campgroundsRouter = express.Router({mergeParams: true});
 const Validation = require('../utils/Validation')
 const catchAsync = require('../utils/CatchAsync')
 const Campground = require('../models/campground')
+const Middleware = require('../utils/Middleware')
 
 campgroundsRouter.get('/', catchAsync (async (req, res) => {
     const campgrounds = await Campground.find({});
     res.render('campgrounds/index', {campgrounds: campgrounds})
 }))
 
-campgroundsRouter.get('/new', (req, res) => {
-    res.render('campgrounds/new');
+campgroundsRouter.get('/new', Middleware.login, (req, res) => {
+    res.render('campgrounds/new');    
 })
 
-campgroundsRouter.post('/', Validation.campground, catchAsync(async(req, res, next) => {
+
+campgroundsRouter.post('/', Validation.campground, Middleware.login, catchAsync(async(req, res, next) => {
     const newCampground = new Campground(req.body.campground)
     console.log(newCampground)
     await newCampground.save()
@@ -28,7 +30,7 @@ campgroundsRouter.get('/:id', catchAsync(async (req, res) => {
     res.render('campgrounds/show', {campground: campground})
 }))
 
-campgroundsRouter.get('/:id/edit', catchAsync(async (req, res) => {
+campgroundsRouter.get('/:id/edit',Middleware.login, catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id);
     res.render('campgrounds/edit', {camp : campground})
 }))
