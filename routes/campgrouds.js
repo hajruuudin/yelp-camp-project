@@ -1,52 +1,55 @@
+if(process.env.NODE_ENV !== 'production'){
+    require('dotenv').config()
+}
+
 const express = require('express')
 const campgroundsRouter = express.Router({mergeParams: true});
 const Validation = require('../utils/Validation')
 const catchAsync = require('../utils/CatchAsync')
 const Campground = require('../models/campground')
 const Middleware = require('../utils/Middleware')
+const Campgrounds = require('../controllers/campgrounds')
+const multer = require('multer')
+const imgbbUploader = require('imgbb-uploader');
 
-campgroundsRouter.get('/', catchAsync (async (req, res) => {
-    const campgrounds = await Campground.find({});
-    res.render('campgrounds/index', {campgrounds: campgrounds})
-}))
-
-campgroundsRouter.get('/new', Middleware.login, (req, res) => {
-    res.render('campgrounds/new');    
-})
+const storage = multer.memoryStorage()
+const upload = multer({storage})
 
 
-campgroundsRouter.post('/', Validation.campground, Middleware.login, catchAsync(async(req, res, next) => {
-    const newCampground = new Campground(req.body.campground)
-    console.log(newCampground)
-    await newCampground.save()
-    req.flash('sucess', 'New Campground Created!')
-    res.redirect(`campgrounds/${newCampground._id}`)
-}))
+campgroundsRouter.route('/')
+    .get(catchAsync (Campgrounds.findAll))
+    // .post(Validation.campground, Middleware.login, catchAsync(Campgrounds.makeNewCampground))
+    .post(Middleware.login, upload.array('image'), async (req, res) => {
+        const imageUrls = [];
 
-campgroundsRouter.get('/:id', catchAsync(async (req, res) => {
-    const { id } = req.params;
-    const campground = await Campground.findById(id).populate('reviews');
-    console.log(campground)
-    res.render('campgrounds/show', {campground: campground})
-}))
+        for (const file of req.files) {
+            const imageUrl = await Middleware.uploadImageToImgbb(file.buffer, file.originalname);
+            imageUrls.push(imageUrl);  // Store the image URL in an array
+        }
+        
+        const newCampground = new Campground({
+            title: req.body.campground.title,
+            images: imageUrls,
+            location: req.body.campground.location,
+            description: req.body.campground.description,
+            price: req.body.campground.price,
+            author: req.user._id
+        })
 
-campgroundsRouter.get('/:id/edit',Middleware.login, catchAsync(async (req, res) => {
-    const campground = await Campground.findById(req.params.id);
-    res.render('campgrounds/edit', {camp : campground})
-}))
+        console.log(newCampground)
+        await newCampground.save()
+        req.flash('sucess', 'New Campground Added!')
+        res.redirect(`/campgrounds/${newCampground._id}`)
+    })
 
-campgroundsRouter.put('/:id', Validation.campground, catchAsync(async(req, res) => {
-    const { id } = req.params;
-    const campground = await Campground.findByIdAndUpdate(id, {...req.body.campground})
-    req.flash('sucess', 'Campground Edited!')
-    res.redirect(`/campgrounds/${campground._id}`)
-}))
+campgroundsRouter.get('/new', Middleware.login, Campgrounds.renderNewForm)
 
-campgroundsRouter.delete('/:id', catchAsync(async (req, res) => {
-    const { id } = req.params;
-    await Campground.findByIdAndDelete(id);
-    req.flash('sucess', 'Campground Deleted!')
-    res.redirect('/campgrounds')
-}))
+campgroundsRouter.route('/:id')
+    .get(catchAsync(Campgrounds.findById))
+    .put(Middleware.login, Middleware.isAuthor, Validation.campground, catchAsync(Campgrounds.editCampground))
+    .delete(Middleware.login, Middleware.isAuthor, catchAsync(Campgrounds.deleteCampground))
+
+campgroundsRouter.get('/:id/edit',Middleware.login, Middleware.isAuthor, catchAsync(Campgrounds.renderEditForm))
+
 
 module.exports = campgroundsRouter;

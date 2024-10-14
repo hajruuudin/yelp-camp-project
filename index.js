@@ -1,3 +1,7 @@
+if(process.env.NODE_ENV !== 'production'){
+    require('dotenv').config()
+}
+
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
@@ -12,6 +16,7 @@ const passport = require('passport')
 const passportLocal = require('passport-local')
 const User = require('./models/user');
 const userRouter = require('./routes/user');
+
 
 
 mongoose.connect('mongodb://localhost:27017/yelp-camp', {})
@@ -34,7 +39,6 @@ const sessionConfig = {
 }
 
 const app = express();
-
 app.engine('ejs', ejsMate)
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -49,8 +53,8 @@ passport.use(new passportLocal(User.authenticate()))
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
+
 app.use((req, res, next) => {
-    console.log(req.session)
     res.locals.success = req.flash('success')
     res.locals.error = req.flash('error')
     res.locals.currentUser = req.user
