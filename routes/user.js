@@ -17,6 +17,7 @@ userRouter.post('/register', catchAsync( async (req, res, next) => {
         console.log(registeredUser);
         req.login(registeredUser, err => {
             if(err) return next(err);
+            req.flash('success', 'Welcome to YelpCamp!')
             res.redirect('/campgrounds')
         })
     } catch(e) {
@@ -35,6 +36,7 @@ userRouter.post('/login', Middleware.storeReturnTo, passport.authenticate('local
     }
 ), (req, res) => {
     const redirectUrl = res.locals.returnTo || '/campgrounds'
+    req.flash('success', `Welcome Back!`)
     res.redirect(redirectUrl)
 })
 
