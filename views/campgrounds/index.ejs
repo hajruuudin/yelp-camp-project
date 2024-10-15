@@ -1,11 +1,25 @@
 <% layout('layouts/boilerplate.ejs') %>
-    <h1>All campgrounds</h1>
+<div id="map" style="
+    width: 100%; 
+    height: 600px;
+    "></div>
+<main class="container mt-5 bg-dark rounded" >
+    <%- include('../partials/flash')  %>
+    <div class="container w-50 mb-5 pt-4" style="z-index: 3;">
+        <h1 class="text-center text-light"><%= message %></h1>
+        <form action="/campgrounds/search" data-bs-theme="dark" method="get">
+            <div class="mb-3">
+            <input type="text" class="form-control" id="searchall" name="search" placeholder="E.g: Wooden Campsite">
+            </div>
+        </form>
+    </div>
+
     <ul>
     <% for(let camp of campgrounds)  {%>
-        <div class="card mb-3">
+        <div class="card mb-3" data-bs-theme="dark">
             <div class="row">
                 <div class="col-md-4">
-                    <img class="img-fluid" src="<%= camp.image %>" alt="">
+                    <img class="img-fluid" src="<%= camp.images[0] %>" alt="">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
@@ -21,3 +35,10 @@
         </div>
     <% } %>
     </ul>
+
+    <script>
+        const mapToken = '<%- process.env.MAPBOX_TOKEN %>'
+        const campgrounds = {features: <%- JSON.stringify(campgrounds)%>}
+    </script>
+    <script src="/js/showClusterMap.js"></script>
+</main>

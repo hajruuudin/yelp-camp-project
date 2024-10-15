@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const cities = require('./cities')
-const {places, descriptors} = require('./seedHelper')
+const {places, descriptors, campgroundDescriptions, images} = require('./seedHelper')
 const Campground = require('../models/campground')
 
 mongoose.connect('mongodb://localhost:27017/yelp-camp', {})
@@ -18,14 +18,23 @@ const sample = (arr) => {
 const seedDb = async () => {
     await Campground.deleteMany({});
     for(let i = 0; i < 50; i++){
+        const randomDescription = Math.floor(Math.random() * 10);
+        const randomImages = Math.floor(Math.random() * 8)
         const random1000 = Math.floor(Math.random() * 1000);
         const price =  Math.floor(Math.random() * 30 + 10);
         const camp = new Campground({
             title: `${sample(descriptors)} ${sample(places)}`,
             author: '670cef3b1035b396c5675e22',
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
-            image: `https://picsum.photos/960/540`,
-            description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur nobis corporis ipsum explicabo neque quidem deserunt porro itaque ducimus a modi id, aut esse est dicta quam officia iure? Earum.",
+            geometry: {
+                type: 'Point',
+                coordinates: [
+                    cities[random1000].longitude,
+                    cities[random1000].latitude
+                ]
+            },
+            images: images[randomImages],
+            description: campgroundDescriptions[randomDescription],
             price: price
         })
         await camp.save();

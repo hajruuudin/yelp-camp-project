@@ -1,6 +1,7 @@
 if(process.env.NODE_ENV !== 'production'){
     require('dotenv').config()
 }
+const sharp = require('sharp')
 
 const Campground = require('../models/campground')
 const Review = require('../models/review')
@@ -43,12 +44,27 @@ const Middleware = {
 
     uploadImageToImgbb: async (imageBuffer, originalname) => {
         try {
+            const image = sharp(imageBuffer)
+            const metadata = await image.metadata()
+            let compressedImage;
+
+            if (metadata.format === 'jpeg') {
+                compressedImage = await image.jpeg({ quality: 40 }).toBuffer();
+            } else if (metadata.format === 'png') {
+                compressedImage = await image.png({ quality: 40, compressionLevel: 8 }).toBuffer();
+            } else if (metadata.format === 'webp') {
+                compressedImage = await image.webp({ quality: 40 }).toBuffer();
+            } else {
+                throw new Error('Unsupported image format');
+            }
+
             const response = await imgbbUploader({
-                apiKey: process.env.IMGBB_API_KEY,  // Get the API key from .env
-                base64string: imageBuffer.toString('base64'),  // Convert image buffer to base64
-                name: originalname.split('.')[0],  // Optional: Use the original filename
+                apiKey: process.env.IMGBB_API_KEY,
+                base64string: compressedImage.toString('base64'),
+                name: originalname.split('.')[0],
             });
-            return response.url;  // Return the URL of the uploaded image
+
+            return response.url;
         } catch (error) {
             throw new Error('Failed to upload image to Imgbb');
         }
