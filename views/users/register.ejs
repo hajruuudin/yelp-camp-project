@@ -1,39 +1,41 @@
 <% layout('layouts/boilerplate.ejs') %>
-<h1>Register</h1>
+<div class="container d-flex flex-column justify-content-center align-items-center">
+    <h1>Register</h1>
 
-<form action="/register" method="POST" novalidate class="validated-form">
-    <div class="mb-3">
-        <label for="username" class="form-label">Username:</label>
-        <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
-        <div class="valid-feedback">
-            Looks good!
+    <form action="/register" method="POST" novalidate class="validated-form">
+        <div class="mb-3">
+            <label for="username" class="form-label">Username:</label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+            <div class="invalid-feedback">
+                Please give a username!
+            </div>
         </div>
-        <div class="invalid-feedback">
-            Please give a username!
-        </div>
-    </div>
 
-    <div class="mb-3">
-        <label for="location" class="form-label">Email:</label>
-        <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
-        <div class="valid-feedback">
-            Looks good!
+        <div class="mb-3">
+            <label for="location" class="form-label">Email:</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+            <div class="invalid-feedback">
+                Please give an email!
+            </div>
         </div>
-        <div class="invalid-feedback">
-            Please give an email!
-        </div>
-    </div>
 
-    <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
-        <div class="valid-feedback">
-            Looks good!
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+            <div class="invalid-feedback">
+                Please give a password!
+            </div>
         </div>
-        <div class="invalid-feedback">
-            Please give a password!
-        </div>
-    </div>
 
-    <button type="submit" class="btn btn-success">Register</button>
-</form>
+        <button type="submit" class="btn btn-success">Register</button>
+    </form>
+</div>

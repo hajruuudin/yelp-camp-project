@@ -65,6 +65,10 @@ app.use('/campgrounds', campgroundsRouter)
 app.use('/campgrounds/:id/review', reviewRouter)
 app.use('/', userRouter)
 
+app.get('/', (req, res) => {
+    res.render('home')
+})
+
 app.all("*", (req, res, next) => {
     next( new ExpressError("PAGE NOT FOUND", 404))
 })
@@ -74,6 +78,7 @@ app.use((err, req, res, next) => {
     if (!err.message) err.message = "Oh no, something went wrong!";
     res.status(status).render('error', {err})
 })
+
 
 app.listen('8080', () => {
     console.log("YelpCamp App listening on 8080");
