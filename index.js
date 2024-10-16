@@ -16,10 +16,16 @@ const passport = require('passport')
 const passportLocal = require('passport-local')
 const User = require('./models/user');
 const userRouter = require('./routes/user');
+const mongoSanitize = require('express-mongo-sanitize');
+const { name } = require('ejs');
+const { error } = require('console');
+const MongoDBStore = require('connect-mongo')(session)
+const dbConn = process.env.DB_CONN
 
+const dbUrl = 'mongodb://localhost:27017/yelp-camp'
 
-
-mongoose.connect('mongodb://localhost:27017/yelp-camp', {})
+mongoose.connect(dbUrl, {})
+// mongoose.connect(dbConn, {})
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -27,12 +33,24 @@ db.once('open', () => {
     console.log('Database Connected')
 })
 
+const store = new MongoDBStore({
+    url: dbUrl,
+    secret: 'thisshouldbeasecret',
+    touchAfter: 24 * 60 * 60
+})
+
+store.on('error', (e) => {
+    console.log("Session store error", e)
+})
+
 const sessionConfig = {
+    name: 'yelp-camp',
     secret: 'thisshouldbeasecret',
     resave: false,
     saveUninitializes: true,
     cookie: {
         httpOnly: true,
+        // secure: true,
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge: 1000 * 60 * 60 * 24 * 7,
     }
@@ -49,6 +67,7 @@ app.use(session(sessionConfig))
 app.use(flash())
 app.use(passport.initialize())
 app.use(passport.session())
+app.use(mongoSanitize())
 passport.use(new passportLocal(User.authenticate()))
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())

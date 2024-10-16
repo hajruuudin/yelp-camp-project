@@ -2,6 +2,10 @@
 <div class="alert alert-danger" role="alert">
     <h4 class="alert-heading"><%= err.message %></h4>
     <p>
-        <%= err.stack %>
+        <% if(process.env.NODE_ENV !== 'production'){ %>
+            <%= err.stack %>
+        <% }  else { %>
+            <h1>An unexpected error has occured!</h1>
+        <% } %>
     </p>
   </div>
