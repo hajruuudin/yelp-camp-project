@@ -1,3 +1,21 @@
 body{
     font-family: 'DM Sans';
 }
+
+.registerBg{
+    background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/content/register.jpg');
+    background-size: 110%;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    transition: background-position 0.1s ease-out;
+}
+
+.loginBg{
+    background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/content/login.jpg');
+    background-size: 110%;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    transition: background-position 0.2s ease-out;
+}

@@ -3,7 +3,7 @@
     width: 100%; 
     height: 600px;
     "></div>
-<main class="container mt-5 bg-dark rounded" >
+<main id="indexMain" class="container mt-5 bg-dark rounded" >
     <%- include('../partials/flash')  %>
     <div class="container w-50 mb-5 pt-4" style="z-index: 3;">
         <h1 class="text-center text-light"><%= message %></h1>
@@ -14,31 +14,21 @@
         </form>
     </div>
 
-    <ul>
-    <% for(let camp of campgrounds)  {%>
-        <div class="card mb-3" data-bs-theme="dark">
-            <div class="row">
-                <div class="col-md-4">
-                    <img class="img-fluid" src="<%= camp.images[0] %>" alt="">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title"><%= camp.title %></h5>
-                        <p class="card-text"><%= camp.description %></p>
-                        <p class="card-text text-muted">
-                            <%= camp.location %>
-                        </p>
-                        <a class="btn btn-primary" href="/campgrounds/<%= camp._id %>">View Campground</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    <% } %>
+    <% if(!result){ %>
+        <h2 class="text-center pb-5">Sorry, no campsites found :/</h2>
+    <% } else {%>
+    <ul id="campgrounds-list">
+    
     </ul>
+    <h5 id="result-message" class="text-center mb-4 pb-4"></h5>
+
+    <button type="button" id="load-more-button" class="btn btn-dark w-100 border-dark-subtle mb-3">Load More...</button>
+    <% } %>
 
     <script>
         const mapToken = '<%- process.env.MAPBOX_TOKEN %>'
         const campgrounds = {features: <%- JSON.stringify(campgrounds)%>}
     </script>
     <script src="/js/showClusterMap.js"></script>
+    <script src="/js/pagination.js"></script>
 </main>

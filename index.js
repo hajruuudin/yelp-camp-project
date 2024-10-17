@@ -17,15 +17,16 @@ const passportLocal = require('passport-local')
 const User = require('./models/user');
 const userRouter = require('./routes/user');
 const mongoSanitize = require('express-mongo-sanitize');
-const { name } = require('ejs');
-const { error } = require('console');
 const MongoDBStore = require('connect-mongo')(session)
 const dbConn = process.env.DB_CONN
-
 const dbUrl = 'mongodb://localhost:27017/yelp-camp'
 
-mongoose.connect(dbUrl, {})
-// mongoose.connect(dbConn, {})
+if(process.env.NODE_ENV !== 'production'){
+    mongoose.connect(dbUrl, {})
+} else {
+    mongoose.connect(dbConn, {})
+}
+
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
