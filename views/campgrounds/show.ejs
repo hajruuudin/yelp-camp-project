@@ -1,7 +1,7 @@
 <% layout('layouts/boilerplate.ejs') %>
 <div class="container">
     <div class="row">
-        <div class="col-6">
+        <div class="col-lg-6 col-12">
             <div id="carouselExample" class="carousel slide mb-3">
                 <div class="carousel-inner">
                     <% campground.images.forEach((img, i) => { %>
@@ -46,12 +46,12 @@
                 </div>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-lg-6 col-12 d-flex flex-column justify-content-center">
             <div id='map' class="w-100 mb-3" style="height: 400px;"></div>
             <% if(currentUser) { %>
-            <h2>Leave a review</h2>
+            <h2 class="text-center">Leave a review</h2>
             <form action="/campgrounds/<%= campground._id %>/review" method="post" novalidate class="validated-form">
-                <div class="mb-3">
+                <div class="mb-3 d-flex flex-column align-items-center">
                     <fieldset class="starability-basic">
                         <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
                         <input type="radio" id="first-rate1" name="review[rating]" value="1" />

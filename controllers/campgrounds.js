@@ -11,7 +11,12 @@ const Middleware = require('../utils/Middleware')
 const Campgrounds = {
     findAll: async (req, res) => {
         const campgrounds = await Campground.find({});
-        res.render('campgrounds/index', {campgrounds: campgrounds, message: `Search all campgrounds:`})
+        res.render('campgrounds/index', 
+            {
+                campgrounds: campgrounds, 
+                message: `Search all campgrounds:`,
+                result: true
+            })
     },
 
     renderNewForm: (req, res) => {
@@ -63,9 +68,19 @@ const Campgrounds = {
         const searchParameter = req.query.search;
         const campgrounds = await Campground.find({title: {$regex: new RegExp(searchParameter, 'i')}})
         if(campgrounds.length === 0){
-            res.send('Sorry no campgrounds found!')
+            res.render('campgrounds/index',
+                {   
+                    campgrounds: campgrounds, 
+                    message: `Showing results for: ${searchParameter}`, 
+                    result: false
+                })
         } else {
-            res.render('campgrounds/index', {campgrounds: campgrounds, message: `Showing results for: ${searchParameter}`})
+            res.render('campgrounds/index', 
+                {
+                    campgrounds: campgrounds, 
+                    message: `Showing results for: ${searchParameter}`,
+                    result: true
+                })
         }
     },
     renderEditForm: async (req, res) => {
