@@ -6,15 +6,60 @@ const passport = require('passport')
 const Middleware = require('../utils/Middleware')
 const Users = require('../controllers/users')
 
-userRouter.get('/register', Users.showRegister)
+/**
+ * GET /register
+ * @function
+ * @async
+ * @memberof module:routes/users
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ * @param {Function} next - The next middleware function
+ */
+userRouter.get('/register', Users.showRegister);
 
-userRouter.post('/register', catchAsync( Users.register))
+/**
+ * POST /register
+ * @function
+ * @async
+ * @memberof module:routes/users
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ * @param {Function} next - The next middleware function
+ */
+userRouter.post('/register', catchAsync(Users.register));
 
-userRouter.get('/login', Users.showLogin)
+/**
+ * GET /login
+ * @function
+ * @async
+ * @memberof module:routes/users
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ * @param {Function} next - The next middleware function
+ */
+userRouter.get('/login', Users.showLogin);
 
-userRouter.post('/login', Middleware.storeReturnTo, passport.authenticate('local', {failureFlash: true,failureRedirect: '/login'}), Users.login)
+/**
+ * POST /login
+ * @function
+ * @async
+ * @memberof module:routes/users
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ * @param {Function} next - The next middleware function
+ */
+userRouter.post('/login', Middleware.storeReturnTo, passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), Users.login);
 
-userRouter.get('/logout', Users.logout); 
+/**
+ * GET /logout
+ * @function
+ * @async
+ * @memberof module:routes/users
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ * @param {Function} next - The next middleware function
+ */
+userRouter.get('/logout', Users.logout);
 
 
 module.exports = userRouter

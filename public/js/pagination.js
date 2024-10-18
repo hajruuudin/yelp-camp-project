@@ -14,8 +14,8 @@ const load_campgrounds = (position) => {
         `
             <div class="card mb-3" data-bs-theme="dark">
                 <div class="row">
-                    <div class="col-md-4">
-                        <img class="img-fluid" src="${campgroundList[i].images[0]}" alt="">
+                    <div class="col-md-4 d-flex flex-column justify-content-center align-items-center overflow-hidden">
+                        <img class="img-responsive border" src="${campgroundList[i].images[0]}" alt="">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
@@ -49,3 +49,5 @@ loadBtn.addEventListener('click', () => {
         loadBtn.disabled = true
     }
 })
+
+

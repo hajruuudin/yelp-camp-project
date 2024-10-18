@@ -1,7 +1,7 @@
 <% layout('layouts/boilerplate.ejs') %>
 
-<div class="container d-flex flex-column justify-content-center align-items-center">
-    <h1 class="align-self-center">New Campground</h1>
+<div class="container-fluid flex-column justify-content-center" style="max-width: 700px;">
+    <h1 class="text-center">New Campground</h1>
 
     <form action="/campgrounds" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
         <div class="mb-3">
