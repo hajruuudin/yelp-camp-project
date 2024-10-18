@@ -1,11 +1,12 @@
 # yelp-camp-project
-Web Application Development for a Campgrounds site search applciation. Browse different campgrounds from all over the world, view their physical location, information and their reviews, as well as add your own campgrounds as well. 
+Beginner Web Application Development for a Campgrounds site search applciation. Browse different campgrounds from all over the world, view their physical location, information and their reviews, as well as add your own campgrounds as well. 
 
 # Table of Contents
 - [Description](#description)
 - [Requirements](#requirements)
 - [Installing](#installing)
 - [Seeding](#seeding)
+- [Features](#features)
 - [Acknowledgments](#acknowledgments)
 
 
@@ -62,10 +63,27 @@ const seedDb = async () => {
 }
 ```
 
-Once that has been repalced, the file can be executed the same as running the server:
+Once that has been replaced, the file can be executed the same as running the server:
 
 ```javascript
 node seeds/seed.js
 ```
+# Features:
+
+1. User Authentication
+	•	User registration and login functionality.
+	•	Password reset and email verification options.
+2.	Campground Management
+	•	Create, read, update, and delete (CRUD) campgrounds.
+	•	Upload images for campgrounds using a file uploader.
+	•	Location-based search for campgrounds using geocoding.
+3.	Reviews and Ratings
+	•	Add and delete reviews for campgrounds.
+	•	User ratings for campgrounds.
+4.	Responsive Design
+	•	Mobile-friendly layout for accessing campgrounds on various devices.
+5.	User Roles and Permissions
+	•	Different permissions for regular users and campground authors.
+
 # Acknowledgments
 Thanks to Colt Steel and the people involved in developing and creating this course!
