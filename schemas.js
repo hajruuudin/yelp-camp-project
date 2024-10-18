@@ -1,5 +1,9 @@
 const Joi = require('joi');
 
+/**
+ * Schemas specific to Form validation and Joi. Used to prevent adding
+ * objects to the database from an external API access application
+ */
 module.exports.campgroundSchema = Joi.object({
     campground: Joi.object({
         title: Joi.string().required(),

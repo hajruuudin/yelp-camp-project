@@ -1,6 +1,6 @@
 <% layout('layouts/boilerplate.ejs') %>
 
-<div class="container d-flex flex-column"></div>
+<div class="container-fluid d-flex flex-column justify-content-center" style="max-width: 800px;">
     <h1 class="align-self-center">Edit Campground</h1>
 
     <form action="/campgrounds/<%= camp._id %>?_method=PUT" method="POST" novalidate class="validated-form">
@@ -52,9 +52,7 @@
 
         <div class="mb-3">
             <label for="description" class="form-label">Campground Decription:</label>
-            <textarea rows="5" type="text" class="form-control" id="description" name="campground[description]" required>
-                <%= camp.description  %>
-            </textarea>
+            <textarea rows="10" type="text" class="form-control" id="description" name="campground[description]" required><%= camp.description  %></textarea>
             <div class="valid-feedback">
                 Looks good!
             </div>
@@ -65,7 +63,4 @@
 
         <button type="submit" class="btn btn-info">Update Campground</button>
     </form>
- 
-
-    <a href="/campgrounds">Back to all campgrounds</a>
 <% layout('layouts/boilerplate.ejs') %>

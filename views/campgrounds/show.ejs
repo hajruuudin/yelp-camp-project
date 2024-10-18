@@ -79,6 +79,9 @@
                 <button class="btn btn-primary mb-3" type="submit">Add Review</button>
             </form>
             <% } %>
+            <% if(campground.reviews.length == 0){ %>
+                <h2 class="text-center">No reviews...</h2>
+            <% }  else  {%>
             <% for (let review of campground.reviews) {%>
                 <div class="card mb-4">
                     <div class="card-body">
@@ -95,7 +98,7 @@
                         <% } %>
                     </div>
                 </div>
-            <% } %>
+            <% }}%>
         </div>
     </div>
 </div>

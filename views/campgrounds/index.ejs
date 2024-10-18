@@ -2,8 +2,12 @@
 <div id="map" style="
     width: 100%; 
     height: 600px;
-    "></div>
-<main id="indexMain" class="container mt-5 bg-dark rounded" >
+    ">
+</div>
+
+<button id="scroll-button" class="scroll-button btn bg-transparent text-white border border-white float-left d-md-none d-block">↓ View all ↓</button>
+
+<main id="indexMain" class="container mt-5 bg-dark rounded d-flex flex-column" >
     <%- include('../partials/flash')  %>
     <div class="container w-50 mb-5 pt-4" style="z-index: 3;">
         <h1 class="text-center text-light"><%= message %></h1>
@@ -17,7 +21,7 @@
     <% if(!result){ %>
         <h2 class="text-center pb-5">Sorry, no campsites found :/</h2>
     <% } else {%>
-    <ul id="campgrounds-list">
+    <ul id="campgrounds-list" style="list-style: none;">
     
     </ul>
     <h5 id="result-message" class="text-center mb-4 pb-4"></h5>
@@ -31,4 +35,5 @@
     </script>
     <script src="/js/showClusterMap.js"></script>
     <script src="/js/pagination.js"></script>
+    <script src="/js/interface.js"></script>
 </main>

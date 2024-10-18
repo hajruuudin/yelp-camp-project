@@ -1,8 +1,8 @@
 if(process.env.NODE_ENV !== 'production'){
     require('dotenv').config()
 }
-const sharp = require('sharp')
 
+const sharp = require('sharp')
 const Campground = require('../models/campground')
 const Review = require('../models/review')
 const imgbbUploader = require('imgbb-uploader')
