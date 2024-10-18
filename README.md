@@ -4,6 +4,9 @@ Web Application Development for a Campgrounds site search applciation. Browse di
 # Table of Contents
 - [Description](#description)
 - [Requirements](#requirements)
+- [Installing](#installing)
+- [Seeding](#seeding)
+- [Acknowledgments](#acknowledgments)
 
 
 # Description
@@ -12,7 +15,7 @@ This is a project developed as part of a web-development course on udemy: The We
 # Requirements
 This project requires node.js, npm as well as MongoDb as three basic elements to run.
 
-## Running on Local Enviroment
+# Installing
 To run the project on a local enviroment, clone the repository and run the following commands:
 
 ```javascript
@@ -29,7 +32,7 @@ To make the project runnable, create a .env file in the root directory with the 
 
 Once these are set in place, the project should run normally. It will create a database named 'yelp-camp'
 
-## Seeding the database (Optional)
+# Seeding (Optional)
 There is also a seed file in the project which will seed the database with 500 random campsites. This is purely to see the functionality of the application. DO NOTE: It will not work immediatly as it relies on having at least one registered user in the database. Firstly, you should create a user from the application itself. After that, you'll need to replace one line of code from the file in seeds/seed.js which creates the actual campground objects:
 ```javascript
 const seedDb = async () => {
@@ -64,4 +67,5 @@ Once that has been repalced, the file can be executed the same as running the se
 ```javascript
 node seeds/seed.js
 ```
-
+# Acknowledgments
+Thanks to Colt Steel and the people involved in developing and creating this course!
