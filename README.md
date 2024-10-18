@@ -1,10 +1,15 @@
 # yelp-camp-project
 Web Application Development for a Campgrounds site search applciation. Browse different campgrounds from all over the world, view their physical location, information and their reviews, as well as add your own campgrounds as well. 
 
-## Description
+# Table of Contents
+- [Description](#description)
+- [Requirements](#requirements)
+
+
+# Description
 This is a project developed as part of a web-development course on udemy: The Web Developer bootcamp 2024 - Become a Developer With ONE course - HTML, CSS, JavaScript, React, Node, MongoDB and More!. The project has been modified (predominantly style wise) with slight improvements on its functionality, as well as changes to some used libraries (some have been replaced compared to other libraries). It uses NodeJS as its predominant backend language, MongoDB for its database and Bootstrap + Plain JS for the frontend. Key libraries include: Express, Mongoose, Passport...
 
-## Basic Requirements
+# Requirements
 This project requires node.js, npm as well as MongoDb as three basic elements to run.
 
 ## Running on Local Enviroment
